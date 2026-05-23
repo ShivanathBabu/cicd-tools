@@ -34,3 +34,7 @@ usermod -aG docker ec2-user
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
+
+curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.35.3/2026-04-08/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+sudo mv kubectl /usr/local/bin/
