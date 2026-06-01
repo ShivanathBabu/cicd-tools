@@ -3,7 +3,7 @@ resource "aws_instance" "jenkins" {
   ami           = local.ami_id
   instance_type = "t3.small"
   vpc_security_group_ids = [aws_security_group.main.id]
-  subnet_id = "subnet-051dc31f75ff4b522" #replace your Subnet
+  subnet_id = "subnet-07c4b73faeccc4ac5" #replace your Subnet
 
   # need more for terraform
   root_block_device {
@@ -23,7 +23,7 @@ resource "aws_instance" "jenkins_agent" {
   ami           = local.ami_id
   instance_type = "t3.small"
   vpc_security_group_ids = [aws_security_group.main.id]
-  subnet_id = "subnet-051dc31f75ff4b522" #replace your Subnet
+  subnet_id = "subnet-07c4b73faeccc4ac5" #replace your Subnet
 
   # need more for terraform
   root_block_device {
@@ -65,4 +65,22 @@ resource "aws_security_group" "main" {
         Name = "${var.project}-${var.environment}-jenkins"
     }
   )
+}
+
+resource "aws_route53_record" "jenkins" {
+  zone_id = var.zone_id
+  name = "jenkins.${var.zone_name}"
+  type = "A"
+  ttl = 1
+  records = [aws_instance.jenkins.public_ip]
+  allow_overwrite = true 
+}
+
+resource "aws_route53_record" "jenkins-agent" {
+  zone_id = var.zone_id
+  name = "jenkins-agent.${var.zone_name}"
+  type = "A"
+  ttl = 1
+  records = [aws_instance.jenkins_agent.public_ip]
+  allow_overwrite = true 
 }
