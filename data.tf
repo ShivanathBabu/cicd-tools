@@ -1,7 +1,6 @@
 data "aws_ami" "example" {
- 
   most_recent      = true
-  owners = [973714476881]
+  owners           = ["973714476881"]
 
   filter {
     name   = "name"
@@ -16,5 +15,10 @@ data "aws_ami" "example" {
   filter {
     name   = "virtualization-type"
     values = ["hvm"]
+  }
+
+  filter {
+    name   = "architecture"
+    values = ["x86_64"]
   }
 }

@@ -11,6 +11,8 @@ xfs_growfs /
 xfs_growfs /var/tmp
 xfs_growfs /var
 
+cd /etc/yum.repos.d/
+sed -i 's/REGION/us-east-2/g' redhat-rhui.repo redhat-rhui-client-config.repo
 
 dnf install java-21-openjdk java-21-openjdk-devel -y
 curl -L -o /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
